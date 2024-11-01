@@ -20,6 +20,8 @@ This Node.js URL Shortener simplifies lengthy URLs by converting them into conci
 - **MongoDB**: A NoSQL database for managing user accounts, URLs, and visit analytics.
 - **JWT (JSON Web Tokens)**: For secure, token-based user authentication.
 - **EJS**: Templating engine for rendering interactive HTML pages.
+- 
+![ScreenShot](https://github.com/shreyas-kapse/url-shortner/blob/main/screenshots/homePage.png?raw=true)
 
 ## Getting Started
 
