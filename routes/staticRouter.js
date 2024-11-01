@@ -20,4 +20,9 @@ router.get("/signup", async (req, res) => {
 router.get("/login", async (req, res) => {
     return res.render("login")
 })
+router.post("/logout", async (req, res) => {
+    res.clearCookie('uid');
+    return res.render("login")
+})
+
 export default router;

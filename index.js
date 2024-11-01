@@ -25,6 +25,7 @@ connectToMongoDB(mongodbUrl)
 
 
 app.get('/**', checkAuth, router);
+app.post('/**', checkAuth, router);
 app.use("/user", userRouter)
 app.use("/url", restrictToLoggedInUsersOnly, urlRoute);
 app.get('/:shortId', async (req, res) => {
