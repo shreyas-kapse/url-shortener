@@ -1,11 +1,13 @@
 import jwt from 'jsonwebtoken';
+import Role from '../role.enum.js';
 const secret = "ancmis";
 
 export function setUser(user) {
 
     return jwt.sign({
         _id: user._id,
-        email: user.email
+        email: user.email,
+        role: Role.USER
     }, secret);
 }
 

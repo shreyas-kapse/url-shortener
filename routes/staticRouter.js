@@ -15,7 +15,6 @@ router.get("/test", async (req, res) => {
     return res.send("test")
 })
 router.get("/signup", async (req, res) => {
-    console.log("inside signup")
     return res.render("signup")
 })
 router.get("/login", async (req, res) => {

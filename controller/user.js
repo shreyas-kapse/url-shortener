@@ -1,12 +1,14 @@
 import User from "../models/user.js";
 import { v4 } from "uuid";
 import { setUser } from "../service/auth.js";
+import Role from "../role.enum.js";
 export async function handleUserSignUp(req, res) {
     const { name, email, password } = req.body;
     await User.create({
         name,
         email,
-        password
+        password,
+        role: Role.USER,
     });
     return res.redirect("/");
 }

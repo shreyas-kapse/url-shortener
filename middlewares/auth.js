@@ -11,9 +11,22 @@ export async function restrictToLoggedInUsersOnly(req, res, next) {
 }
 
 export async function checkAuth(req, res, next) {
-    const userId = req.cookies?.uid;
+    try {
+        const userId = req.cookies?.uid;
 
-    const user = getUser(userId);
-    req.user = user;
-    next();
+        if (!userId) {
+            return res.status(400).json({ error: 'User ID not found in cookies, Please login' });
+        }
+
+        const user = await getUser(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        req.user = user;
+        next();
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
 }
