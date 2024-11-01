@@ -1,6 +1,9 @@
 import jwt from 'jsonwebtoken';
 import Role from '../role.enum.js';
-const secret = "ancmis";
+import dotenv from "dotenv";
+
+dotenv.config();
+const secret = process.env.SECRET;
 
 export function setUser(user) {
 
