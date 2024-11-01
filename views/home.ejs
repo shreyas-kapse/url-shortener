@@ -5,25 +5,122 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f5f7fa;
+      height: auto;
+      margin-top: 2%;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 40px;
+      width: 100%;
+      max-width: 700px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 1rem;
+      color: #555;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      background-color: #f9f9f9;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    button {
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    table {
+      margin-top: 20px;
+      width: 100%; 
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      width: auto;
+    }
+
+    th {
+      background-color: #f1f1f1;
+    }
+
+    tbody tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .tableContainer{
+      width: 100%;
+      max-width: 80%;
+      margin-bottom: 5%;
     }
   </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>URL Shortener</title>
 </head>
 
 <body>
-  <h1>URL Shortner</h1>
+  <h1>URL Shortener</h1>
   <% if (locals.id) { %>
-  <p>Generated URL : http://localhost:8001/<%=id%></p>
+  <p>Generated URL: <a href="http://localhost:8001/<%= id%>" target="_blank">http://localhost:8001/<%= id%></a></p>
   <% } %>
   <form method="post" action="/url">
-    <label>Enter original url :</label>
-    <input type="text" name="url" placeholder="https://google.com">
+    <label for="url">Enter original URL:</label>
+    <input type="text" id="url" name="url" placeholder="https://google.com" required>
     <button type="submit">Generate</button>
   </form>
-  <div>
-    <% if(locals.urls){ %>
+  <div class="tableContainer">
+    <% if(locals.urls && urls.length > 0) { %>
     <table>
       <thead>
         <tr>
@@ -34,16 +131,18 @@
         </tr>
       </thead>
       <tbody>
-        <% urls.forEach((url,index) => { %>
+        <% urls.forEach((url, index) => { %>
         <tr>
-          <td><%= index+1%></td>
-          <td><%= url.shortId%></td>
-          <td><%= url.redirectURL%></td>
-          <td><%= url.visitHistory.length%></td>
+          <td><%= index + 1 %></td>
+          <td><%= url.shortId %></td>
+          <td><a href="<%= url.redirectURL %>" target="_blank"><%= url.redirectURL %></a></td>
+          <td><%= url.visitHistory.length %></td>
         </tr>
         <% }) %>
       </tbody>
     </table>
+    <% } else { %>
+      <p>No URLs generated yet.</p>
     <% } %>
   </div>
 </body>
