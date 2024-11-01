@@ -13,7 +13,7 @@ export async function restrictToLoggedInUsersOnly(req, res, next) {
 export async function checkAuth(req, res, next) {
     const userId = req.cookies?.uid;
 
-    const user = getUser(userId);
+    const user = await getUser(userId);
     req.user = user;
     next();
 }
