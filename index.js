@@ -6,7 +6,9 @@ import router from "./routes/staticRouter.js";
 const app = express();
 import { connectToMongoDB } from "./connect.js";
 import dotenv from "dotenv";
-
+import userRouter from "./routes/user.js";
+import cookieParser from "cookie-parser";
+import { checkAuth, restrictToLoggedInUsersOnly } from "./middlewares/auth.js";
 dotenv.config();
 const PORT = 8001;
 
@@ -15,13 +17,16 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
 app.set('views', path.resolve('./views'));
+app.use(cookieParser());
 
 connectToMongoDB(mongodbUrl)
     .then(() => console.log("mongodb conneced"))
     .catch((error) => console.log(error));
 
-app.use("/url", urlRoute);
-app.get('/', router);
+
+app.get('/**', checkAuth, router);
+app.use("/user", userRouter)
+app.use("/url", restrictToLoggedInUsersOnly, urlRoute);
 app.get('/:shortId', async (req, res) => {
     const shortId = req.params.shortId;
     const entry = await URL.findOneAndUpdate({
