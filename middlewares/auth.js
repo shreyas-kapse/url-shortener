@@ -4,7 +4,7 @@ export async function restrictToLoggedInUsersOnly(req, res, next) {
     console.log("Cookies received:", req.cookies);
     const userId = req.cookies?.uid;
     if (!userId) return res.redirect("/login");
-    const user = getUser(userId);
+    const user = await getUser(userId);
     if (!user) return res.redirect("/login");
     req.user = user;
     next();
