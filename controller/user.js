@@ -19,10 +19,8 @@ export async function handleUserLogin(req, res) {
     if (user == null) {
         return res.redirect("/login");
     }
-    const sessionId = v4();
-    console.log("session id", sessionId);
-    setUser(sessionId, user);
-    res.cookie("uid", sessionId, {
+    const token = setUser(user);
+    res.cookie("uid", token, {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24
     });
