@@ -11,7 +11,7 @@ export function setUser(user) {
     }, secret);
 }
 
-export function getUser(token) {
+export async function getUser(token) {
     if (!token) return null;
     return jwt.verify(token, secret);
 }
