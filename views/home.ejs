@@ -85,7 +85,7 @@
 
     th, td {
       padding: 12px;
-      text-align: left;
+      text-align: center;
       border-bottom: 1px solid #ddd;
       width: auto;
     }
@@ -128,6 +128,7 @@
           <th>Short Id</th>
           <th>Redirect</th>
           <th>Clicks</th>
+          <th>Analytics</th>
         </tr>
       </thead>
       <tbody>
@@ -137,6 +138,7 @@
           <td><%= url.shortId %></td>
           <td><a href="<%= url.redirectURL %>" target="_blank"><%= url.redirectURL %></a></td>
           <td><%= url.visitHistory.length %></td>
+          <td><a href="http://localhost:8001/url/analytics/<%=url.shortId%>"> Click to View</a></td>
         </tr>
         <% }) %>
       </tbody>
