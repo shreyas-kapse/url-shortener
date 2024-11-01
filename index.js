@@ -20,7 +20,7 @@ app.set('views', path.resolve('./views'));
 app.use(cookieParser());
 
 connectToMongoDB(mongodbUrl)
-    .then(() => console.log("mongodb conneced"))
+    .then(() => console.log("mongodb connected"))
     .catch((error) => console.log(error));
 
 
